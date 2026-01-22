@@ -4,5 +4,5 @@
 .extern __stack_top
 
 boot:
-    lw sp, __stack_top
+    la sp, __stack_top
     j kernel_main

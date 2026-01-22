@@ -12,7 +12,7 @@ panic = "abort"
 panic = "abort"
 strip = "none"
 lto = "fat"
-opt-level = "z"
+opt-level = 3
 
 [profile.test]
 panic = "abort"

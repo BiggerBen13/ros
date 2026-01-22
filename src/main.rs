@@ -1,8 +1,11 @@
 #![no_std]
 #![no_main]
 
+use crate::trap::{trap_handler, write_csr};
 use core::arch::asm;
 use core::panic::PanicInfo;
+
+mod trap;
 
 #[inline(always)]
 #[allow(clippy::too_many_arguments)]
@@ -46,12 +49,19 @@ fn putstr(s: &str) {
 
 #[unsafe(no_mangle)]
 pub fn kernel_main() -> ! {
-    loop {
-            putstr("Hello, World!\n");
+    write_csr!(stvec, trap_handler as *const () as usize);
+    putstr("running\n");
+    unsafe {
+        asm! {"unimp"}
     }
+    loop {}
 }
 
 #[panic_handler]
 pub fn kernel_panic(_: &PanicInfo) -> ! {
-    loop {}
+    loop {
+        unsafe {
+            asm! { "wfi" }
+        };
+    }
 }
