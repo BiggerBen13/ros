@@ -1,0 +1,21 @@
+[package]
+name = "ros"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+panic = "abort"
+strip = "symbols"
+lto = "fat"
+opt-level = "z"
+
+[profile.test]
+panic = "abort"
+
+[build-dependencies]
+cc = "1.2.53"
