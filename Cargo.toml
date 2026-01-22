@@ -10,7 +10,7 @@ panic = "abort"
 
 [profile.release]
 panic = "abort"
-strip = "symbols"
+strip = "none"
 lto = "fat"
 opt-level = "z"
 
